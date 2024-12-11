@@ -230,6 +230,11 @@ build {
     source      = "${path.root}/../toolsets/toolset-2404.json"
   }
 
+  provisioner "file" {
+    destination = "${var.installer_script_folder}/toolset-patch.json"
+    source      = "${path.root}/../toolsets/toolset-2404-patch.json"
+  }
+
   provisioner "shell" {
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     inline          = [

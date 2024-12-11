@@ -18,6 +18,13 @@ apt-get update
 # Install nvidia container toolkit which available via apt-get
 # Using toolsets keep installation order to install dependencies before the package in order to control versions
 
+get_toolset_value() {
+    local toolset_path="${INSTALLER_SCRIPT_FOLDER}/toolset-patch.json"
+    local query=$1
+
+    echo "$(jq -r "$query" $toolset_path)"
+}
+
 components=$(get_toolset_value '.nvidia-container.components[] .package')
 for package in $components; do
     version=$(get_toolset_value ".nvidia-container.components[] | select(.package == \"$package\") | .version")

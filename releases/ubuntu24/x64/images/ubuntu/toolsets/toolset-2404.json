@@ -192,22 +192,6 @@
       }
     ]
   },
-  "nvidia-container": {
-    "components": [
-      {
-        "package": "nvidia-container-toolkit",
-        "version": "latest"
-      }
-    ]
-  },
-  "nvidia-driver": {
-    "components": [
-      {
-        "package": "cuda-drivers",
-        "version": "latest"
-      }
-    ]
-  },
   "pipx": [
     {
       "package": "yamllint",
