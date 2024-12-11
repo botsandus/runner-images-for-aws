@@ -46,7 +46,7 @@ packer_init_cmd = [
 ]
 packer_build_cmd = [
   "packer", "build",
-  "-var", %{ami_regions=["us-east-1"]},
+  "-var", %{ami_regions=["eu-west-2"]},
   "-var", "ami_name=#{ami_name}",
   "-var", "image_os=#{dist}",
   "-var", "image_version=#{options[:image_version]}",
@@ -64,7 +64,7 @@ puts "Running Packer build command: #{packer_build_cmd.join(' ')}"
 
 unless system(*packer_build_cmd)
   # Cleanup any dangling EC2 instances
-  ec2_client = Aws::EC2::Client.new(region: 'us-east-1')
+  ec2_client = Aws::EC2::Client.new(region: 'eu-west-2')
   instances = ec2_client.describe_instances(
     filters: [
       { name: 'instance-state-name', values: ['running', 'pending', 'stopping', 'stopped'] },
@@ -81,7 +81,7 @@ unless system(*packer_build_cmd)
 end
 
 # Fetch AMI ID corresponding to AMI name
-ec2_client = Aws::EC2::Client.new(region: 'us-east-1')
+ec2_client = Aws::EC2::Client.new(region: 'eu-west-2')
 ami_id = nil
 
 begin

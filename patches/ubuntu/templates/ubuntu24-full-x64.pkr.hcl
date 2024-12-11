@@ -104,10 +104,9 @@ source "amazon-ebs" "build_ebs" {
   ami_description                           = "${var.ami_description}"
   ami_virtualization_type                   = "hvm"
   # make AMIs publicly accessible
-  ami_groups                                = ["all"]
+  # ami_groups                                = ["all"]
   ebs_optimized                             = true
-  spot_instance_types                       = ["m7a.xlarge", "c7a.xlarge", "m7i-flex.xlarge"]
-  spot_price                                = "1.00"
+  instance_type                             = "m7i-flex.large"
   region                                    = "${var.region}"
   ssh_username                              = "ubuntu"
   subnet_id                                 = "${var.subnet_id}"
@@ -118,7 +117,7 @@ source "amazon-ebs" "build_ebs" {
   ami_regions = "${var.ami_regions}"
 
   // make underlying snapshot public
-  snapshot_groups = ["all"]
+  # snapshot_groups = ["all"]
 
   launch_block_device_mappings {
     device_name = "/dev/sda1"
@@ -230,6 +229,11 @@ build {
     source      = "${path.root}/../toolsets/toolset-2404.json"
   }
 
+  provisioner "file" {
+    destination = "${var.installer_script_folder}/toolset-patch.json"
+    source      = "${path.root}/../custom/files/toolset-2404-patch.json"
+  }
+
   provisioner "shell" {
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     inline          = [
@@ -279,35 +283,35 @@ provisioner "shell" {
       "${path.root}/../scripts/build/install-azcopy.sh",
       "${path.root}/../scripts/build/install-azure-cli.sh",
       // "${path.root}/../scripts/build/install-azure-devops-cli.sh",
-      "${path.root}/../scripts/build/install-bicep.sh",
-      "${path.root}/../scripts/build/install-apache.sh",
+      # "${path.root}/../scripts/build/install-bicep.sh",
+      # "${path.root}/../scripts/build/install-apache.sh",
       "${path.root}/../scripts/build/install-aws-tools.sh",
       "${path.root}/../scripts/build/install-clang.sh",
       "${path.root}/../scripts/build/install-cmake.sh",
       // "${path.root}/../scripts/build/install-codeql-bundle.sh",
       // "${path.root}/../scripts/build/install-container-tools.sh",
-      "${path.root}/../scripts/build/install-dotnetcore-sdk.sh",
+      # "${path.root}/../scripts/build/install-dotnetcore-sdk.sh",
       "${path.root}/../scripts/build/install-gcc-compilers.sh",
       "${path.root}/../scripts/build/install-gfortran.sh",
       "${path.root}/../scripts/build/install-git.sh",
       "${path.root}/../scripts/build/install-git-lfs.sh",
       "${path.root}/../scripts/build/install-github-cli.sh",
-      "${path.root}/../scripts/build/install-google-chrome.sh",
+      # "${path.root}/../scripts/build/install-google-chrome.sh",
       // "${path.root}/../scripts/build/install-haskell.sh",
-      "${path.root}/../scripts/build/install-java-tools.sh",
-      "${path.root}/../scripts/build/install-kubernetes-tools.sh",
-      "${path.root}/../scripts/build/install-miniconda.sh",
-      "${path.root}/../scripts/build/install-mysql.sh",
+      # "${path.root}/../scripts/build/install-java-tools.sh",
+      # "${path.root}/../scripts/build/install-kubernetes-tools.sh",
+      # "${path.root}/../scripts/build/install-miniconda.sh",
+      # "${path.root}/../scripts/build/install-mysql.sh",
       // "${path.root}/../scripts/build/install-nginx.sh",
       "${path.root}/../scripts/build/install-nodejs.sh",
       // "${path.root}/../scripts/build/install-bazel.sh",
       // "${path.root}/../scripts/build/install-php.sh",
-      "${path.root}/../scripts/build/install-postgresql.sh",
+      # "${path.root}/../scripts/build/install-postgresql.sh",
       // "${path.root}/../scripts/build/install-pulumi.sh",
       "${path.root}/../scripts/build/install-ruby.sh",
       "${path.root}/../scripts/build/install-rust.sh",
       // "${path.root}/../scripts/build/install-julia.sh",
-      "${path.root}/../scripts/build/install-selenium.sh",
+      # "${path.root}/../scripts/build/install-selenium.sh",
       // "${path.root}/../scripts/build/install-vcpkg.sh",
       "${path.root}/../scripts/build/configure-dpkg.sh",
       "${path.root}/../scripts/build/install-yq.sh",
@@ -322,6 +326,18 @@ provisioner "shell" {
     environment_vars = ["HELPER_SCRIPTS=${var.helper_script_folder}", "INSTALLER_SCRIPT_FOLDER=${var.installer_script_folder}", "DOCKERHUB_PULL_IMAGES=NO"]
     execute_command  = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     scripts          = ["${path.root}/../scripts/build/install-docker.sh"]
+  }
+
+provisioner "shell" {
+    environment_vars = ["HELPER_SCRIPTS=${var.helper_script_folder}", "INSTALLER_SCRIPT_FOLDER=${var.installer_script_folder}"]
+    execute_command  = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
+    scripts          = ["${path.root}/../custom/files/install-nvidia-driver.sh"]
+  }
+
+provisioner "shell" {
+    environment_vars = ["HELPER_SCRIPTS=${var.helper_script_folder}", "INSTALLER_SCRIPT_FOLDER=${var.installer_script_folder}"]
+    execute_command  = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
+    scripts          = ["${path.root}/../custom/files/install-nvidia-container.sh"]
   }
 
   // provisioner "shell" {
