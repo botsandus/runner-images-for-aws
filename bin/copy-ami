@@ -6,7 +6,7 @@ require 'slop'
 
 AMI_DEV_PREFIX = "runs-on-dev"
 AMI_PROD_PREFIX = "runs-on-v2.2"
-SOURCE_REGION = "us-east-1"
+SOURCE_REGION = "eu-west-2"
 REGIONS = YAML.load_file(File.expand_path("../config.yml", __dir__)).fetch("regions")
 
 options = {}

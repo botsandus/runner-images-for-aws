@@ -37,7 +37,7 @@ class Image < Struct.new(:ami, :region)
 end
 
 REGIONS.each_with_index do |region, index|
-  if AMI_PREFIX == "runs-on-dev" && region != "us-east-1"
+  if AMI_PREFIX == "runs-on-dev" && region != "eu-west-2"
     next
   end
 
