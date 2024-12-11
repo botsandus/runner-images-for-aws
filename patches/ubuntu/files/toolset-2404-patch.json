@@ -1,5 +1,5 @@
 {
-  "nvidia-container": {
+  "nvidia_container": {
     "components": [
       {
         "package": "nvidia-container-toolkit",
@@ -7,7 +7,7 @@
       }
     ]
   },
-  "nvidia-driver": {
+  "nvidia_driver": {
     "components": [
       {
         "package": "cuda-drivers",
