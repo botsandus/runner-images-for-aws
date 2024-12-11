@@ -232,7 +232,7 @@ build {
 
   provisioner "file" {
     destination = "${var.installer_script_folder}/toolset-patch.json"
-    source      = "${path.root}/../custom/toolset-2404-patch.json"
+    source      = "${path.root}/../custom/files/toolset-2404-patch.json"
   }
 
   provisioner "shell" {
