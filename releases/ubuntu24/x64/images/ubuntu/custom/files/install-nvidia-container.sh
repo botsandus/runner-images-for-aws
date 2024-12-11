@@ -25,9 +25,9 @@ get_toolset_value() {
     echo "$(jq -r "$query" $toolset_path)"
 }
 
-components=$(get_toolset_value '.nvidia-container.components[] .package')
+components=$(get_toolset_value '.nvidia_container.components[] .package')
 for package in $components; do
-    version=$(get_toolset_value ".nvidia-container.components[] | select(.package == \"$package\") | .version")
+    version=$(get_toolset_value ".nvidia_container.components[] | select(.package == \"$package\") | .version")
     if [[ $version == "latest" ]]; then
         apt-get install --no-install-recommends "$package"
     else
