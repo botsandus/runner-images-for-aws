@@ -106,7 +106,7 @@ source "amazon-ebs" "build_ebs" {
   # make AMIs publicly accessible
   # ami_groups                                = ["all"]
   ebs_optimized                             = true
-  instance_type                             = ["m7i-flex.large"]
+  instance_type                             = "m7i-flex.large"
   region                                    = "${var.region}"
   ssh_username                              = "ubuntu"
   subnet_id                                 = "${var.subnet_id}"
