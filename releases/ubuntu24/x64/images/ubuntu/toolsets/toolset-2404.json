@@ -156,6 +156,7 @@
       "ssh",
       "sshpass",
       "sudo",
+      "systemd-coredump",
       "swig",
       "telnet",
       "time",
@@ -189,22 +190,6 @@
         "plugin": "compose",
         "version": "2.27.1",
         "asset": "linux-x86_64"
-      }
-    ]
-  },
-  "nvidia-container": {
-    "components": [
-      {
-        "package": "nvidia-container-toolkit",
-        "version": "latest"
-      }
-    ]
-  },
-  "nvidia-driver": {
-    "components": [
-      {
-        "package": "cuda-drivers",
-        "version": "latest"
       }
     ]
   },
