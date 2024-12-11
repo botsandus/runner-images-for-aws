@@ -90,13 +90,13 @@ def copy_ami_to_regions(ami_id_or_name, regions, force = false)
     ec2.wait_until(:image_available, image_ids: [image_id])
     puts "AMI #{image_id} is now available in region #{region}"
 
-    ec2.modify_image_attribute({
-      image_id: image_id,
-      launch_permission: {
-        add: [{ group: 'all' }]
-      }
-    })
-    puts "Launch permissions for AMI #{image_id} updated to public"
+    # ec2.modify_image_attribute({
+    #   image_id: image_id,
+    #   launch_permission: {
+    #     add: [{ group: 'all' }]
+    #   }
+    # })
+    # puts "Launch permissions for AMI #{image_id} updated to public"
     # to avoid throttling
     sleep 2
   end
