@@ -109,6 +109,7 @@ source "amazon-ebs" "build_ebs" {
   spot_instance_types                       = ["m7i-flex.large"]
   spot_price                                = "1.00"
   region                                    = "${var.region}"
+  availability_zone                         = ""
   ssh_username                              = "ubuntu"
   subnet_id                                 = "${var.subnet_id}"
   associate_public_ip_address               = "true"
