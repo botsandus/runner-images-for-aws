@@ -9,8 +9,8 @@ on:
         description: 'Distribution(s) to build'
         # default: '["ubuntu22-full-x64", "ubuntu22-full-arm64", "ubuntu24-full-x64", "ubuntu24-full-arm64"]'
         default: '["ubuntu24-full-x64"]'
-  schedule:
-    - cron: '0 8 */15 * *'
+  # schedule:
+  #   - cron: '0 8 */15 * *'
 
 jobs:
   sync:
